@@ -1,0 +1,72 @@
+Starting with 5 nodes.
+Thread 101 starting wait.
+Thread 102 starting wait.
+Thread 103 starting wait.
+Thread 104 starting wait.
+Thread 105 starting wait.
+Thread 105 back from wait.
+Thread 102 back from wait.
+Thread 102 entered PREPARE state.
+Thread 101 back from wait.
+Thread 101 entered PREPARE state.
+Thread 104 back from wait.
+Thread 104 entered PREPARE state.
+Thread 103 back from wait.
+Thread 103 entered PREPARE state.
+Thread 105 entered PREPARE state.
+Thread 102 entered ACCEPT state.
+Thread 101 entered ACCEPT state.
+Thread 104 entered ACCEPT state.
+Thread 103 entered ACCEPT state.
+Thread 105 received PROM
+Thread 105 entered PROPOSE state.
+Thread 104 entered PREPARE state.
+Thread 101 entered PREPARE state.
+Thread 105 entered ACCEPT state.
+Thread 102 entered PREPARE state.
+Thread 104 received PROM
+Thread 104 entered PROPOSE state.
+Thread 101 entered ACCEPT state.
+Thread 102 entered ACCEPT state.
+Thread 103 entered PREPARE state.
+Thread 104 received END
+Thread 104 decided on 105 as leader.
+Thread 105 entered PREPARE state.
+Thread 101 entered PREPARE state.
+Thread 103 entered ACCEPT state.
+Thread 105 entered ACCEPT state.
+Thread 101 received PROM
+Thread 101 entered PROPOSE state.
+Thread 102 entered PREPARE state.
+Thread 101 entered ACCEPT state.
+Thread 102 received PROM
+Thread 102 entered PROPOSE state.
+Thread 105 entered PREPARE state.
+Thread 101 entered PREPARE state.
+Thread 103 entered PREPARE state.
+Thread 102 entered ACCEPT state.
+Thread 105 entered ACCEPT state.
+Thread 101 received PROM
+Thread 101 entered PROPOSE state.
+Thread 103 entered ACCEPT state.
+Thread 101 received END
+Thread 101 decided on 105 as leader.
+Thread 105 entered PREPARE state.
+Thread 102 entered PREPARE state.
+Thread 105 received PROM
+Thread 102 entered ACCEPT state.
+Thread 105 entered PROPOSE state.
+Thread 103 entered PREPARE state.
+Thread 105 received END
+Thread 105 decided on 105 as leader.
+Thread 103 entered ACCEPT state.
+Thread 102 entered PREPARE state.
+Thread 102 received PROM
+Thread 102 entered PROPOSE state.
+Thread 102 received END
+Thread 102 decided on 105 as leader.
+Thread 103 entered PREPARE state.
+Thread 103 received PROM
+Thread 103 entered PROPOSE state.
+Thread 103 received END
+Thread 103 decided on 105 as leader.

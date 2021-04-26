@@ -1,0 +1,39 @@
+Starting with 5 nodes.                           
+Thread 101 starting wait.
+Thread 102 starting wait.
+Thread 103 starting wait.
+Thread 104 starting wait.
+Thread 105 starting wait.
+Thread 105 back from wait.
+Thread 104 back from wait.
+Thread 105 sent PREPARE.
+Thread 102 back from wait.
+Thread 101 back from wait.
+Thread 103 back from wait.
+Thread 104 sent PREPARE.
+Thread 102 sent PREPARE.
+Thread 104 received PROM
+Thread 102 received PROM
+Thread 105 sent PREPARE.
+Thread 103 received PROM
+Thread 104 received PROM
+Thread 105 received PROM
+Thread 105 sent PROPOSE.
+Thread 102 received ACC
+Thread 103 received ACC
+Thread 104 received ACC
+Thread 105 received ACC
+Thread 101 received LEADER
+Thread 102 received LEADER
+Thread 103 received LEADER
+Thread 104 received LEADER
+Thread 105 received LEADER
+Thread 105 decided on 105 as leader.
+Thread 104 received END
+Thread 104 decided on 105 as leader.
+Thread 102 received END
+Thread 102 decided on 105 as leader.
+Thread 101 received END
+Thread 101 decided on 105 as leader.
+Thread 103 received END
+Thread 103 decided on 105 as leader.
