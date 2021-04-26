@@ -1,0 +1,788 @@
+
+
+\documentclass[12pt]{article}
+
+
+\pagestyle{plain}
+
+%packages
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{changepage}
+\usepackage{listings}
+\usepackage{comment}
+
+\usepackage[onehalfspacing]{setspace}
+
+\setcounter{tocdepth}{1}
+
+%environments
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{exa}[thm]{Example}
+
+%-- notation -- Check these out!!
+\newcommand{\noqed}{\begin{flushright}$\Box$\end{flushright}}
+\newcommand{\ba}{\[\begin{aligned}}
+\newcommand{\ea}{\end{aligned}\]}
+%numbers
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+%sets
+\newcommand{\setof}[1]{\left\{#1\right\}}
+\newcommand{\setdef}[2]{\left\{#1\mid#2\right\}}
+\newcommand{\floor}[1]{\lfloor#1\rfloor}
+%matrix
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+%groups
+\newcommand{\gen}[1]{\langle#1\rangle} %generator
+\newcommand{\ol}[1]{\overline{#1}} %overline
+\newcommand{\bo}[1]{\textbf{#1}}%bold
+%topology
+\newcommand{\Lk}{\text{Lk}}
+\newcommand{\St}{\text{St}}
+\newcommand{\dl}{\text{dl}}
+\newcommand{\Bary}{\text{Bary }}
+\newcommand{\skel}{\text{skel }}
+\newcommand{\Baryn}[1]{\text{Bary}^{#1}\ }
+\newcommand{\skeln}[1]{\text{skel}^{#1}\ }
+
+%spacing
+%\setlength{\parindent}{0in}
+%\setlength{\parskip}{3mm}
+
+
+\begin{document}
+
+\title{Hamiltonian paths through the complete graph of the dihedral group}
+
+\author{Kat Cannon-MacMartin}
+
+%\date{September 8, 2014}
+
+\maketitle
+
+\begin{abstract}
+  \noindent
+  This paper investigates Hamiltonian paths through the
+  complete graph of the dihedral group and their accompanying multisets
+  of edge labels. Foundational work in this area includes
+  Buratti, Horak, and Rosa's conjecture about Hamiltonian paths in graphs
+  labeled with the integers, as well as Seamone and Stevens' generalization
+  of this concept to arbitrary groups. Extending from these previous results,
+  we provide a complete classification of realizable multisets containing two distinct elements,
+  and supply partial results and a conjecture about realizable multisets containing
+  three distinct elements.
+\end{abstract}
+\tableofcontents
+\pagebreak
+
+\section{Introduction}
+This paper investigates Hamiltonian paths through the complete graph labeled
+with the elements of the dihedral group, using an induced edge labeling
+as described below. In particular, we endeavor to classify
+which multisets of edges may arise from a valid Hamiltonian path, and which do not.
+
+The dihedral group $D_{2m}$ represents the symmetries of a regular $m$-sided polygon.
+The element $u$ represents a rotational symmetry, while $v$ represents a reflection,
+defined as follows:
+$$D_{2m} = \gen{u,\ v : u^m = e = v^2,\ vu = u^{-1}v}$$ 
+Separating the elements of $D_{2m}$ by whether or not they contain a
+reflection $v$, yields the subgroup
+containing only rotations, $C_m = \setdef{u^n}{0 < n < m}$ and the coset formed by
+adding a reflection to each rotation $C_mv$. It follows
+that $C_m \cup C_mv = D_{2m}$ and $C_m \cap C_mv = \emptyset$.
+
+Consider the the elements of an arbitrary finite group $G$ with order $n$ as vertex labels for the complete graph
+$K_n$ with $n$ vertices. Edges are labeled with the difference between elements
+such that an edge $\setof{x, y}$ is labeled $\setof{xy^{-1}, x^{-1}y}$. This is the induced
+labeling employed throughout this paper.
+
+In the specific case of the dihedral group, we adopt
+a shorthand for representing edge labels using only a
+single element as follows. Edges with differences $\setof{u^n, u^{-n}}$ are
+labeled $\ol{u^n}$ with $n \leq \floor{\frac{m}{2}}$, while edges
+with reflection differences $\setof{u^nv, u^nv}$ are labeled $\ol{u^nv}$.
+Note that reflection elements are their own inverses.
+
+\subsection{Background}
+The basis for the Buratti-Horak-Rosa (BHR) conjecture was first proposed by Marco Buratti
+in a private correspondence with Alex Rosa. Buratti's idea was generalized
+by Rosa and Peter Horak, first published by them in \cite{BHR} as a conjecture about integers.
+In this case, the problem considers a complete graph $K_v$ on the integers $\setof{0, 1, \dots, v - 1}$.
+Edges are labeled such that edge $\setof{x, y}$ has label $\min(|x - y|,\ v - |x - y|)$.
+In \cite{NewResult},
+a paper investigating results related to Buratti's problem, Anita Pasotti and Marco Pellegrini
+provide a succinct and clear statement of the BHR conjecture, which is paraphrased below.
+
+\begin{conj}[M. Buratti, P. Horak, and A. Rosa]\label{BHR}
+  Let $L$ be a multiset of $v-1$ positive integers
+  not exceeding $\floor{\frac{v}{2}}$. Then there exists a Hamiltonian path $H$ of
+  $K_v$ labeled with $L$ if, and only if, the following condition holds:
+  \begin{equation}\label{BHRcondition}
+    \left. \begin{array}{c}
+      \textrm{for any divisor $d$ of $v$, the number of multiples of $d$} \\
+      \textrm{appearing in $L$ does not exceed $v-d$.}
+    \end{array}\right.
+  \end{equation}
+\end{conj}
+
+\subsection{Results in cyclic groups}
+The graph $K_v$ on integers $\setof{0, 1, \dots, v-1}$ described in the BHR conjecture is in
+fact the complete graph of the cyclic group of order $v$, using the labeling for arbitrary groups
+described above.
+Consequently, in pursuit of the BHR conjecture, a range of results have been achieved in cyclic groups.
+The statement is trivially true when $L$ contains exactly one distinct element, and in \cite{BHR} it is proven
+to be true when $L$ contains exactly two distinct elements. A variety of cases have been proven when
+$L$ contains exactly three distinct elements in \cite{123}, \cite{NewResult}, and \cite{OnBHR}.
+Furthermore, Mariusz Meszka showed via computer program that the conjecture is true for all $v \leq 18$.
+In \cite{NewMethods}, the most recent significant paper on the topic, the statement is proven for
+a wide range of lists with arbitrary length.
+
+\subsection{Generalization beyond the integers}
+In \cite{SandS}, Ben Seamone and Brett Stevens generalize the BHR
+conjecture beyond the integers, expanding to
+a theorem about spanning trees in any finite group. For a complete graph $K$ with
+vertices labeled by the elements of finite group $G$, Seamon and Stevens define a
+multiset of induced edge labels $L$ as \textit{realizable} if there exists a spanning
+tree in $K$ with exactly the edge labels in $L$.
+
+\begin{thm}[B. Seamone and B. Stevens]\label{sst}
+  Let $G$ be a finite group of order $n$. A label set $L$ of size $n - 1$
+  is realizable as a $G$-spanning tree if and only if,
+  \begin{equation}\label{sstcondition}
+    \left. \begin{array}{c}
+      \textrm{for any $H < G$, there are at most $n - [G:H]$} \\
+      \textrm{elements in $L$ which lie in $H$.}
+    \end{array}\right.
+  \end{equation}
+\end{thm}
+
+With this generalization in mind, we endeavor to explore the implications of Theorem \ref{sst}
+as it applies to the dihedral group. Namely, which multisets of dihedral group elements can be
+realized as Hamiltonian paths, and which cannot? For our purposes, we define a multiset of edge labels
+as \textit{realizable} if there exists a Hamiltonian path using these labels, a stricter condition
+than that of Seamone and Stevens.
+Before investigating this issue, we address further notation
+for expressing multisets of edge labels in the graph of the dihedral group.
+
+\subsection{Multiset notation}
+In this paper, the ``label sets'' mentioned in Theorem \ref{sst} will be represented
+as multisets of edge-labels in the graph $K_{2m}$ as described in the introduction.
+When addressing a multiset $M$ of edge labels, it is not
+possible to use traditional exponent-based multiset notation to denote the quantity of
+specific elements as the dihedral group already differentiates its elements by exponent.
+In its place, we use ``$a \cdot \ol{x}$'' to denote that a multiset
+contains $a$ copies of the edge-label $\ol{x}$.
+
+\begin{exa}
+  The multiset of edge labels for $D_8$ containing $2$ copies of the label $\ol{u}$, $3$ copies of $\ol{u^2v}$,
+  and $2$ copies of $\ol{v}$ is denoted:
+  $$L = \setof{2 \cdot \ol{u},\ 2 \cdot \ol{v},\ 3 \cdot \ol{u^2v}}$$
+\end{exa}
+
+The following sections prove general statements about this problem in the dihedral group,
+as direct extensions of Theorem \ref{sst}. Additionally, we investigate realizable and
+not realizable multisets in detail, leading to a complete classification of multisets
+with two distinct elements, and a partial classification of multisets with three
+distinct elements.
+
+\section{General statements on the dihedral group}
+The application of Theorem \ref{sst} to the dihedral group produces a number
+of intuitive results without any extra work.
+To get a taste of these direct applications, two corollaries
+of Theorem \ref{sst} follow, with supplementary proofs relating specifically to
+the dihedral group.
+
+\begin{cor} \label{leqm} In the dihedral group $D_{2m}$, multisets $M$ of the form
+\begin{itemize}
+\item $M = \setof{a \cdot u^nv, \dots}$ for any $n < m$
+\item $M = \setof{a \cdot u^{m/2}, \dots}$ if $m$ is even
+\end{itemize}
+are not realizable for $a > m$.
+\end{cor}
+\begin{proof}
+  In the dihedral group $D_{2m}$ the only elements with a difference of
+  exactly $u^nv$ are pairs $\setof{u^i, u^{i + n}v}$ for any $i < m$. There are exactly $m$
+  such pairs of elements in $D_{2m}$, therefore there are exactly $m$ edges
+  labeled $\ol{u^nv}$ in the graph $K_{2m}$ for any $n < m$. It follows
+  that a realizable multiset may not contain more than $m \cdot \ol{u^nv}$.
+
+  Similarly, when $m$ is even, there are exactly $m$ pairs with a difference $\ol{u^{m/2}}$.
+  Two elements with a difference of $\ol{u^n}$ for any $n$ must both be members of either the
+  subgroup $C_m$ or the coset $C_mv$. A difference of $\ol{u^{m/2}}$ with $m$ even
+  is an involution, therefore the number of edges in $K_{2m}$ labeled $\ol{u^{m/2}}$ is exactly
+  $\frac{|C_m|}{2} + \frac{|C_mv|}{2} = m$. It follows that a realizable
+  multiset may not contain more than $m \cdot \ol{u^{m/2}}$ when $m$ is even.
+\end{proof}
+
+\begin{cor} \label{needv} In the dihedral group $D_{2m}$, multisets must contain
+  at least one element $\ol{u^nv}$ (for any $n < m$) to be realizable.
+\end{cor}
+\begin{proof}
+  In the graph $G_{2m}$, any edge labeled $\ol{u^n}$ (for any $n < m$) connects two elements of
+  the subgroup $C_m$ \textit{or} two elements of the coset $C_mv$. Any realizable multiset
+  must contain at least one edge connecting an element of $C_m$ to an element of $C_mv$,
+  and all such edges are labeled $\ol{u^nv}$ (for any $n < m$).
+\end{proof}
+
+The theorem of Seamone and Stevens is a good starting point, but obviously not completely sufficient.
+As any Hamiltonian path is a spanning tree, any realizable difference set must meet
+the condition of Theorem \ref{sst}, however not all qualifying
+difference sets will suffice for our purposes.
+
+\begin{exa}\label{bsst}
+  In the dihedral group $D_8$ the multiset $L = \setof{4 \cdot \ol{v},\ \ol{uv},\ 2 \cdot \ol{u^3v}}$
+  meets the necessary condition of Theorem \ref{sst} but is not realizable as a Hamiltonian
+  path through $K_{2m}$.
+\begin{proof}
+  Differences of $\ol{v}$ may not appear adjacent in the sequence of differences, as multiplication
+  by $v$ is an involution. Therefore, every odd-indexed difference in the sequence must be $\ol{v}$.
+  It follows that the sequence of differences $\ol{v}, \ol{u^3v}, \ol{v}, \ol{uv}$ must be present
+  in the realization of $L$. These differences, when combined, yield the identity, indicating
+  that the first element in a sequence that realizes these differences will be the same as the
+  last element in the sequence. This indicates a repeated element in the realization of $L$, therefore
+  the multiset $L$ is not realizable.
+\end{proof}
+\end{exa}
+
+A multiset which meets the condition proposed by Seamone and Stevens in Theorem \ref{sst}
+will henceforth be referred to as an \textit{admissible} multiset, which differentiates it from a
+\textit{realizable} multiset that can definitely form a Hamiltonian path.
+All realizable multisets are admissible, but as shown above, not all admissible sets are realizable.
+
+\section{Theorems}
+
+It is established by Example \ref{bsst} that multisets of edge labelings must be held
+to a higher standard than that of Theorem \ref{sst} to fulfill our criteria.
+The following sections attack two and three element \textit{admissible} multisets
+in the dihedral group in an attempt to classify which are realizable and which are not.
+
+The easiest method for proving that a multiset is realizable
+is providing a sequence (or generalized sequence) that realizes the desired labels.
+Throughout the following proofs, the specialized notation $\bo{s}_i, \bo{t}_i$ is used
+when expressing some sequences. This notation leverages the proof of Corollary \ref{leqm},
+which establishes that any label $\ol{u^nv}$ is applied only to edges between
+elements $u^i, u^{i+n}v$ for any $i$. Consequently, the notational conventions
+$\bo{s}_i, \bo{t}_i$ correspond to the two possible orderings of such sequences,
+with $\bo{s}_i = u^i, u^{i+n}v$ and $\bo{t}_i = u^{i+n}v, u^i$ for a given $n$. It follows
+from the proof of Corollary \ref{leqm} that any multiset containing $a$ elements $\ol{u^nv}$ must contain
+exactly $a$ of such pairings.
+
+\subsection{Two-element constructions}\label{sectwo}
+
+Two-element multisets are generally easy to realize. Most significantly, as all multisets for a given group
+must contain the same number of labels, any restrictions on the quantity of one element necessarily restricts
+both. Furthermore, as shown in Example \ref{bsst},
+the same reflection element $\ol{u^nv}$ may not appear sequentially in a sequence of differences.
+This means that any repeated reflection elements must be at least alternated with another element in the set.
+In two-element multisets, there is only one other element with which to alternate, greatly restricting possible orderings.
+By Corollary \ref{needv}, realizable multisets must contain at least one reflection element,
+necessitating that this restriction is present in any two-element realization.
+
+This way in which each element of a two-element multiset restricts the other results in easy extensions of possibility
+proofs (realizations) into equivalent impossibility proofs (if and only if). Below is a demonstrative proof on perhaps
+the simplest multiset form in the dihedral group.
+
+\begin{lem} \label{u+v} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v}}$$
+are realizable for exactly the values
+$$\setdef{a, b}{ m - 1 \leq a \leq 2m - 2,\ b = (2m - 1) - a}.$$
+\end{lem}
+
+\begin{proof}
+  $(\Rightarrow)$
+  For $b = 1, 2$ multisets of the given form are
+  realized by the sequences
+  \ba
+  S_1 &= e, u, \dots , u^{m-1}, u^{m-1}v, u^{m-2}v, \dots, v\\
+  \text{Labels} &: \ol{u}, \ol{u}, \dots, \ol{v}, \ol{u}, \ol{u}, \dots, \ol{u}\\
+  S_2 &= e, v, uv, \dots, u^{m-1}v, u^{m-1}, u^{m-2},\dots, u\\
+  \text{Labels} &: \ol{v}, \ol{u}, \ol{u}, \dots, \ol{v}, \ol{u}, \ol{u}, \dots, \ol{u}
+  \ea
+
+  Define the strings $\bo{s}_i, \bo{t}_i$ to be $\bo{s}_i = u^i, u^iv$ and
+  $\bo{t}_i = u^iv, u^i$ for any $i < m$. For $2 < b \leq m$, multisets
+  of the given form are realized by the sequences
+  $$
+  S = \begin{cases}
+    \bo{s}_0, \bo{t}_1, \bo{s}_2, \bo{t}_3, \dots, \bo{s}_{b-2}, u^{b-1}v, \dots, u^{m-1}v, u^{m-1}, u^{m-2}, \dots, u^{m-b+2} & \text{b is even}\\
+    \bo{s}_0, \bo{t}_1, \bo{s}_2, \bo{t}_3, \dots, \bo{t}_{b-2}, u^{b-1}, \dots, u^{m-1}, u^{m-1}v, u^{m-2}v, \dots, u^{m-b+2}v & \text{b is odd}
+  \end{cases}
+  $$
+  these sequences both yield a similarly formed sequence of labels
+  $$ \ol{v}, \ol{u}, \ol{v}, \ol{u}, \dots, \ol{v}, \ol{u}, \ol{u}, \dots, \ol{u}, \ol{v}, \ol{u}, \dots, \ol{u}.$$
+
+  $(\Leftarrow)$
+  Multisets of the given form are not realizable for $a < m - 1$, as Corollary \ref{leqm}
+  dictates that $b \leq m$. Multisets of the given form are not realizable for $a > 2m - 2$,
+  as Corollary \ref{needv} dictates that $b \geq 1$.
+\end{proof}
+
+Generalized forms of sequences can be difficult to digest. An example illustrating the generalized sequences of Lemma
+\ref{u+v} follows.
+
+\begin{exa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{5 \cdot \ol{u},\ 4 \cdot \ol{v}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, uv, u, u^2, u^2v, u^3v, u^4v, u^4, u^3\\
+  &Labels : \ol{v}, \ol{u}, \ol{v}, \ol{u}, \ol{v}, \ol{u}, \ol{u}, \ol{v}, \ol{u}
+  \ea
+\end{exa}
+
+Lemma \ref{u+v} provides an excellent classification of the two simplest edge labelings
+in the dihedral group. This classification can be extended greatly, however, using the
+automorphism properties of the group. A corollary of Lemma \ref{u+v} follows,
+expanding its implications.
+
+\begin{cor} \label{un} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setdef{a \cdot \ol{u^{n_1}},\ b \cdot \ol{u^{n_2}v}}{n_1 \nmid m,\ n_1, n_2 < m}$$
+are realizable for exactly the values
+$$\setdef{a, b}{ m - 1 \leq a \leq 2m - 2,\ b = (2m - 1) - a}.$$
+\end{cor}
+\begin{proof}
+  Consider the elements $u^{n_1}, u^{n_2}v$ as generators of the group $D_{2m}$.
+  Because $n_1 \nmid m$, $u^{n_1}$ generates the subgroup $C_m$, and it follows
+  that $\gen{u^{n_1}, u^{n_2}v}$ generates $D_{2m}$. Following the rules set
+  in the presentation of $D_{2m}$ we have
+  \ba
+  (u^{n_1})^m = u^{n_1m} &= e\\
+  (u^{n_2}v)^2 = u^{n_2}vu^{n_2}v = v^2 &= e
+  \ea
+  and for the second rule:
+  $$u^{n_2}vu^{n_1} = u^{n_2 - n_1}v$$
+  We can present the group
+  $$D_{2m} = \gen{u^{n_1},\ u^{n_2}v : (u^{n_1})^m = e = (u^{n_2}v)^2,\ u^{n_2}vu^{n_1} = u^{n_2-n_1}v}$$
+  therefore there exists an automorphism $\phi$ such that $\phi : u^{n_1} \to u$ and $\phi : u^{n_2}v \to v$.
+
+  Applying an automorphism $\phi$ to a sequence $S$ yields a new sequence $S_{\phi}$ with edge labels
+  equivalent to applying $\phi$ to the edge labels of $S$. Therefore the sequences presented
+  in Lemma \ref{u+v} imply the existence of sequences satisfying multisets of the form $M$, for
+  the same values $a,b$.
+\end{proof}
+
+Given the ease of applying automorphism to realizations of two-element multisets, the natural path
+forward is to classify simple two-element constructions that can then be readily expanded
+using automorphisms. If Lemma \ref{u+v} provides one possible form of two-element multiset,
+a rotation element and a reflection element, then we are left with only one other possible form:
+two reflection elements. Recall that a two-element multiset containing two different rotation elements
+is not realizable per Corollary \ref{needv}.
+
+\begin{lem} \label{unv} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{v},\ b \cdot \ol{uv}}$$
+are realizable for exactly the values
+$$\setdef{a,\ b}{a \in \setof{m, m-1},\ b = 2m - (a + 1)}.$$
+\end{lem}
+
+\begin{proof}
+  $(\Rightarrow)$
+  At $a = m - 1, b = m$ multisets of the given form are realized by the sequence
+ 
+  \ba
+  S_1 &= e, uv, u, u^2v, u^2, \dots , u^{m-1}v, u^{m-1}, v\\
+  \text{Labels} &: \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \dots, \ol{v}, \ol{uv}
+  \ea
+ 
+  At $a = m, b = m - 1$ multisets of the given form are realized by reversing
+  the entire sequence $S_1$ with the exception of the initial identity element, as below
+  \ba
+  S_2 &= e, v, u^{m-1}, u^{m-1}v, u^{m-2}, u^{m-2}v, \dots , u, uv\\
+  \text{Labels} &: \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \dots, \ol{uv}, \ol{v}
+  \ea
+
+  $(\Leftarrow)$
+  Corollary \ref{leqm} dictates that $a,b \leq m$, therefore multisets with $a > m$ or
+  $a < m - 1$ are not realizable.
+\end{proof}
+
+\begin{exa}
+  In the dihedral group $D_{8}$, the multiset
+  $$M = \setof{4 \cdot \ol{v},\ 3 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, u^3, u^3v, u^2, u^2v, u, uv\\
+  &Labels : \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{v}
+  \ea
+\end{exa}
+
+As with Lemma \ref{u+v}, Lemma \ref{unv} can be generalized significantly through automorphisms.
+
+\begin{cor} \label{uvv}
+In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setdef{a \cdot \ol{u^{n_1}v},\ b \cdot \ol{u^{n_2}v}}{n_1 - n_2 \nmid m,\ n_1,n_2 < m}$$
+are realizable for exactly the values
+$$\setdef{a,\ b}{a \in \setof{m, m-1},\ b = 2m - (a + 1)}.$$
+\end{cor}
+
+\begin{proof}
+  In the dihedral group, if a subset $\gen{x, y}$ generates the group, then there
+  exists an automorphism $\phi$ that maps $\phi : x \to x'$, $\phi : y \to y'$
+  for any $x', y'$ such that $|x| = |x'|,\ |y| = |y'|$ and $\gen{x', y'}$ generates
+  the group. Therefore, for fixed $a,b$ there exists a map from the multiset presented in Lemma \ref{unv}
+  to any multiset of the given form $M$, and by extension any multiset of the form $M$ is realizable for
+  exactly the values of $a, b$ presented in Lemma \ref{unv}.
+\end{proof}
+
+Admissibility of multisets, as defined by Theorem \ref{sst}, is determined relatively easily
+for two-element constructions. In order to form a spanning tree through a graph, every
+element of the group must be reachable from the identity, traveling only along edges labeled
+with the elements in the given multiset. This is equivalent to the elements in a multiset
+generating the group. Using this property that a multiset must generate the group to be
+admissible, we can easily reach the following theorem based on the results of
+Lemmas \ref{u+v} and \ref{unv}.
+
+\begin{thm} \label{two} In the dihedral group $D_{2m}$ all admissible multisets
+  containing two distinct elements are realizable.
+\end{thm}
+
+\begin{proof}
+  It is trivially true that a difference set must generate the group to be admissible.
+  To generate $D_{2m}$, a two-element set must generate an element $u^{n_1}$
+  such that $n_1 \nmid m$, as well as contain some element $u^{n_2}v$ for any $n_2 < m$.
+  The element $u^{n_1}$ generates $C_m$, and when combined with the element $u^{n_2}v$
+  generates $C_mv$.
+
+  By this rule, multisets of the form
+  $$M = \setof{a \cdot \ol{u^{n_1}},\ b \cdot \ol{u^{n_2}v}}$$
+  are admissible only if $n_1 \nmid m$, exactly the range of values covered by
+  Corollary \ref{un}.
+
+  Multisets of the form
+  $$M = \setof{a \cdot \ol{u^{n_1}v},\ b \cdot \ol{u^{n_2}v}}$$
+  are admissible only if $n_1 - n_2 \nmid m$, as the element $u^n$ with $n \nmid m$ must be
+  generated by multiplying $u^{n_1}vu^{n_2}v = u^{n_1 - n_2}$. This is exactly the range of
+  values covered by Corollary \ref{uvv}.
+
+  Lemmas \ref{u+v} and \ref{unv} cover all admissible values of $a, b$, therefore
+  all admissible two-element multisets are realizable.
+\end{proof}
+
+As established previously, a Hamiltonian path is an example of a spanning tree,
+and therefore a multiset must be admissible in order to be realizable. Consequently,
+Theorem \ref{two} classifies all two-element multisets that are realizable as Hamiltonian
+paths through the graph of the dihedral group.
+
+\subsection{Three-element constructions}\label{secthree}
+Three-element multisets pose a significantly greater challenge than two. While all admissible
+two-element multisets proved to be realizable, Example \ref{bsst} already shows that the same
+cannot be said for three-element constructions. One easy way to produce results is emulating
+a two-element multiset by fixing the quantity of one element at a value, often $m$, and solving
+for possible quantities of the other elements. This is easiest when the element fixed to
+$m$ copies is a reflection. As they may not appear sequential, every other edge starting
+with the first will be labeled with the fixed element. The following lemma and example leverage
+this property for easy results.
+
+\begin{lem} \label{fixc} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{c = m,\ a + b + c = 2m - 1}$$
+\end{lem}
+\begin{proof}
+  When $a = 0$ or $b = 0$, $M$ is realizable by Theorem \ref{two}.
+  With strings $\bo{s}_i, \bo{t}_i$ such that $\bo{s}_i = u^i, u^{i+1}v$ and
+  $\bo{t}_i = u^{i+1}v, u^i$, multisets of the given form are realized by the sequence
+  $$
+  S = \begin{cases}
+    \bo{s}_0, \bo{s}_1, \dots, \bo{s}_b, \bo{t}_{b+1}, \bo{s}_{b+2}, \dots, \bo{s}_{m-2}, \bo{t}_{m-1} & \text{a is odd}\\
+    \bo{s}_0, \bo{s}_1, \dots, \bo{s}_b, \bo{t}_{b+1}, \bo{s}_{b+2}, \dots, \bo{t}_{m-2}, \bo{s}_{m-1} & \text{a is even}\\
+    \end{cases}
+  $$
+  The initial sequence of strings $\bo{s}_i$ are each labeled with with $\ol{uv}$, while the edge between each
+  is labeled with $\ol{v}$. Strings $\bo{t}_i$ are similarly labeled with $\ol{uv}$, however alternating between
+  $\bo{s}_i, \bo{t}_i$ yields labels of $\ol{u}$ between each. Therefore these sequences yield the labels:
+  $$\ol{uv}, \ol{v}, \ol{uv}, \dots, \ol{v}, \ol{uv}, \ol{u}, \ol{uv}, \dots, \ol{u}, \ol{uv}$$
+\end{proof}
+\begin{exa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{2 \cdot \ol{u},\ 2 \cdot \ol{v},\ 5 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, uv, u, u^2v, u^2, u^3v, u^4v, u^3, u^4, v\\
+  &Labels : \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{u}, \ol{uv}, \ol{u}, \ol{uv}
+  \ea
+\end{exa}
+
+While Lemma \ref{fixc} uses a fixed number of labels $\ol{uv}$, we can produce similar results
+from the same multiset form by simply fixing the other reflection label $\ol{v}$, as below.
+
+\begin{lem} \label{fixb} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{b = m,\ a + b + c = 2m - 1}$$
+\end{lem}
+\begin{proof}
+  When $a = 0$ or $c=0$, $M$ is realizable by Theorem \ref{two}.
+  With strings $\bo{s}_i, \bo{t}_i$ such that $\bo{s}_i = u^i, u^iv$ and
+  $\bo{t}_i = u^iv, u^i$, multisets of the given form are realized by the sequence
+  $$
+  S = \begin{cases}
+    \bo{s}_0, \bo{s}_{m-1}, \bo{s}_{m-2}, \dots, \bo{s}_{m-c}, \bo{t}_{m-c-1}, \bo{s}_{m-c-2}, \dots, \bo{s}_2, \bo{t}_1 & \text{a is odd}\\
+    \bo{s}_0, \bo{s}_{m-1}, \bo{s}_{m-2}, \dots, \bo{s}_{m-c}, \bo{t}_{m-c-1}, \bo{s}_{m-c-2}, \dots, \bo{t}_2, \bo{s}_1 & \text{a is even}\\
+  \end{cases}
+  $$
+  which produces the sequence of labels
+  $$\ol{v}, \ol{uv}, \ol{v}, \dots, \ol{uv}, \ol{v}, \ol{u}, \ol{v}, \dots, \ol{u}, \ol{v}$$
+\end{proof}
+\begin{exa}
+  In the dihedral group $D_{8}$, the multiset
+  $$M = \setof{1 \cdot \ol{u},\ 4 \cdot \ol{v},\ 2 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, u^3, u^3v, u^2, u^2v, uv, u\\
+  &Labels : \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{u}, \ol{v}
+  \ea
+\end{exa}
+
+In the interest of following the pattern laid out by the previous two theorems, the natural
+next step is to fix the number of $\ol{u}$ labels to $m$. Unfortunately, this action
+is not nearly as restrictive as fixing the quantity of reflection labels. Crucially,
+rotation labels such as $\ol{u}$, may be repeated sequentially in a sequence of labels.
+As a result, enforcing a specific number of $\ol{u}$ labels does not impose the same
+structure on a sequence as fixing a reflection label. The $m$ $\ol{u}$ labels may appear
+anywhere in the sequence, just as if there were $m-1$ or $m+1$ of them.
+
+The absence of this structure poses a secondary challenge as well. When every other label,
+starting with the first, is a reflection element, then any realizing sequence will necessarily
+travel from the subgroup $C_m$ to the coset $C_mv$ and back every two elements. While this
+traversal may happen more often as a result of additional reflection elements, the guaranteed
+alternation severely limits which multisets can possibly be realized, making the work
+that much easier.
+
+Despite these limiting factors, some results can still easily be achieved. The following
+theorem emulates previous proofs by loosely requiring that every other label is $\ol{u}$.
+The specific form does not set $\ol{u}$ as the first label, however, so two consecutive
+$\ol{u}$ labels appear.
+
+\begin{lem} \label{fixaceven} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{a = m,\ a + b + c = 2m - 1}$$
+when $m$ and $c$ are even.
+\end{lem}
+\begin{proof}
+  When $b = 0$ or $c = 0$, $M$ is realizable by Theorem \ref{two}.
+  With strings $\bo{s}_i, \bo{t}_i$ such that $\bo{s}_i = u^i, u^{i+1}v$ and
+  $\bo{t}_i = u^{i+1}v, u^i$, multisets of the given form are realized by the sequence
+  $$S = \bo{s}_0, \bo{t}_1, \bo{s}_2, \dots, \bo{t}_{c-1}, u^c, u^{c+1}, u^{c+1}v, u^{c+2}v, \dots, u^{m-1}, u^{m-1}v, v$$
+  The sequence splits the required multiset in two, covering all labels $\ol{uv}$ in the first half and labels $\ol{v}$
+  in the second. Every other label is $\ol{u}$ in an alternating fashion, with two in sequence in the middle.
+  This produces the following labels:
+  $$\ol{uv}, \ol{u}, \ol{uv}, \dots, \ol{uv}, \ol{u}, \ol{u}, \ol{v}, \ol{u}, \dots, \ol{u}, \ol{v}, \ol{u}$$
+\end{proof}
+\begin{exa}
+  In the dihedral group $D_{8}$, the multiset
+  $$M = \setof{4 \cdot \ol{u},\ 1 \cdot \ol{v},\ 2 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, uv, u^2v, u, u^2, u^3, u^3v, v\\
+  &Labels : \ol{uv}, \ol{u}, \ol{uv}, \ol{u}, \ol{u}, \ol{v}, \ol{u}
+  \ea
+\end{exa}
+
+The sequence provided in Lemma \ref{fixaceven} endeavors to alternate $\ol{u}$ labels by
+separating $\ol{uv}$ and $\ol{v}$ labels. Taking the opposite approach yields results as well,
+however. The following Lemmas produce realizations with sequences that group all reflection
+labels except one at the beginning of the sequence. At the end of this section, differences
+of only $\ol{u}$ are used to traverse what remains of either $C_m$ or $C_mv$. When all
+remaining elements of the given subset have been exhausted, the final reflection
+label is used to switch to the other subset, and the final elements are again
+traversed using labels $\ol{u}$.
+
+While these sequences are elegant in their form, the grouping of all reflection
+elements limits them to multisets with similar quantities of labels $\ol{v}$ and $\ol{uv}$.
+
+\begin{lem}\label{moreuv} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{1 \leq c \leq m,\ c - b = 1,\ a + b + c = 2m - 1}$$
+\end{lem}
+\begin{proof}
+  Multisets of the given form are realized by the sequence
+  $$S = e, uv, u, u^2v, u^2, \dots, u^{c-1}v, u^{c-1}, u^{c}, \dots, u^{m-1}, v, u^{m-1}v, u^{m-2}v, \dots, u^{c}v$$
+  which is labeled
+  $$\ol{uv}, \ol{v}, \ol{uv}, \dots, \ol{v}, \ol{u}, \ol{u}, \dots, \ol{uv}, \ol{u}, \ol{u}, \dots, \ol{u}$$
+\end{proof}
+\begin{exa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{2 \cdot \ol{u},\ 3 \cdot \ol{v},\ 4 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, uv, u, u^2v, u^2, u^3v, u^3, u^4, v, u^{4}v\\
+  &Labels : \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{u}, \ol{uv}, \ol{u}
+  \ea
+\end{exa}
+
+\begin{lem} \label{morev} In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+  are realizable for the values
+  $$\setdef{a, b, c}{1 \leq b \leq m,\ b - c \in \setof{1, 2},\ a + b + c = 2m - 1}$$
+\end{lem}
+\begin{proof}
+  Multisets of the given form are realized by the sequence
+  $$
+  S = \begin{cases}
+    e, v, u^{m-1}, u^{m-1}v, u^{m-2}, u^{m-2}v, \dots, u^{m-b+1}, u^{m-b}, \dots, u, uv, u^2v, \dots, u^{m-b+1}v \\
+    \text{in the case } b - c = 1\\
+    e, v, u^{m-1}, u^{m-1}v, u^{m-2}, u^{m-2}v, \dots, u^{m-b+2}, u^{m-b+2}v, u^{m-b+1}v, \dots, uv, u, u^2, \dots, u^{m-b} \\
+    \text{in the case } b - c = 2\\
+  \end{cases}
+  $$
+
+  In the case $b - c = 1$, the sequence is labeled
+  $$\ol{v}, \ol{uv}, \ol{v}, \dots, \ol{uv}, \ol{u}, \ol{u}, \dots, \ol{u}, \ol{v}, \ol{u}, \dots, \ol{u}$$
+  In the case $b - c = 2$, the sequence is labeled
+  $$\ol{v}, \ol{uv}, \ol{v}, \dots, \ol{uv}, \ol{v}, \ol{u}, \dots, \ol{u}, \ol{v}, \ol{u}, \dots, \ol{u}$$
+\end{proof}
+
+\begin{exa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{ 3 \cdot \ol{u},\ 4 \cdot \ol{v},\ 2 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, u^4, u^4v, u^3, u^3v, u^2v, uv, u, u^2\\
+  &Labels : \ol{v}, \ol{uv}, \ol{v}, \ol{uv}, \ol{v}, \ol{u}, \ol{u}, \ol{v}, \ol{u}
+  \ea
+\end{exa}
+
+\section{Conclusion and extensions}
+It is apparent that
+a complete classification of three-element constructions must be more complicated than that
+for two elements, as Example \ref{bsst} shows that the condition of Theorem \ref{sst}
+alone is too weak. In spite of this counter-example, the lemmas included in Section \ref{secthree}
+provide a promising start towards classifying multisets composed of $\ol{u}, \ol{v}, \ol{uv}$.
+As in the case of two-element constructions, a complete classification of this form of multiset
+would provide a stable foundation for building a classification of all three-element constructions
+using automorphisms. Below we provide a conjecture on the existence of such a classification.
+
+\begin{conj}\label{threeclass}
+  In the dihedral group $D_{2m}$, multisets of the form
+  $$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+  are realizable for exactly the values
+  $$\setdef{a, b, c}{b, c \leq m,\ a, b, c \geq 1,\ a + b + c = 2m - 1}$$
+\end{conj}
+
+This conjecture implies that \textit{all admissible} multisets of the given form
+are realizable. Indeed, a proof that multisets outside of the range of Conjecture \ref{threeclass}
+are not realizable is easily supplied below.
+
+\begin{lem}\label{conjnegate}
+  In the dihedral group $D_{2m}$, multisets of the form
+  $$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+  are not realizable for the values
+  $$\setdef{a, b, c}{c > m \text{ or } b > m}$$
+\end{lem}
+\begin{proof}
+  Corollary of Theorem \ref{sst}. The values are explicitly proven
+  to be impossible by the proof of Corollary \ref{leqm}.
+\end{proof}
+
+The lemmas provided in Section \ref{secthree} cover almost all of Conjecture \ref{threeclass},
+but there are still some cases missing. The ``missing'' realizations are supplied below
+as additional conjectures, accompanied by examples indicating their possible
+realizability.
+
+\begin{conj}\label{amodd}
+In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{a = m,\ a + b + c = 2m - 1}$$
+when $m$ and/or $c$ are odd.
+\end{conj}
+
+\begin{exa}\label{oddexa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{ 5 \cdot \ol{u},\ 1 \cdot \ol{v},\ 3 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, uv, u^2v, u, u^2, u^3v, u^4v, u^3, u^4\\
+  &Labels : \ol{v}, \ol{u}, \ol{u}, \ol{uv}, \ol{u}, \ol{uv}, \ol{u}, \ol{uv}, \ol{u}
+  \ea
+\end{exa}
+
+Note that the following conjecture overlaps slightly with Lemma \ref{morev} for the
+sake of making a succinct statement.
+
+\begin{conj}\label{vuvdiff}
+In the dihedral group $D_{2m}$, multisets of the form
+$$M = \setof{a \cdot \ol{u},\ b \cdot \ol{v},\ c \cdot \ol{uv}}$$
+are realizable for the values
+$$\setdef{a, b, c}{a \neq m,\ b,c < m,\ |b - c| \geq 2,\ a + b + c = 2m - 1}$$
+\end{conj}
+\begin{exa}
+  In the dihedral group $D_{10}$, the multiset
+  $$M = \setof{ 4 \cdot \ol{u},\ 4 \cdot \ol{v},\ 1 \cdot \ol{uv}}$$
+  is realized by the sequence
+  \ba
+  &Sequence : e, v, uv, u, u^2v, u^2, u^3, u^4, u^4v, u^3\\
+  &Labels : \ol{v}, \ol{u}, \ol{v}, \ol{uv}, \ol{v}, \ol{u}, \ol{u}, \ol{v}, \ol{u}
+  \ea
+\end{exa}
+
+As demonstrated, the multiset forms supplied in Conjectures \ref{amodd} and \ref{vuvdiff}
+are by no means unrealizable. These are merely the admissible forms of $\ol{u},\ol{v},\ol{uv}$
+multisets that could not be covered by the realizations supplied in Section \ref{secthree}. The
+examples provided above were obtained by first creating $c$ pairs of the form $\setof{u^n, u^{n+1}v}$,
+then traversing the remaining elements using differences of $\ol{u}$ and $\ol{v}$. This technique most
+likely generalizes to all cases of Conjecture \ref{threeclass}, and could potentially be used to compose
+a single proof for all the multisets it describes.
+
+The logical next step is determining the truth of Conjecture \ref{threeclass}, and from that point
+proceeding with automorphisms on a complete classification of multisets composed of
+$\ol{u}, \ol{v}, \ol{uv}$. If Conjecture \ref{threeclass} is correct, and all such admissible
+multisets are realizable, then the difference between admissibility and realizability proven by
+Example \ref{bsst} takes place only in three-element constructions with other elements besides
+$\ol{u}, \ol{v}, \ol{uv}$. Further extensions will require an investigation of exactly when this difference
+between admissibility and realizability occurs.
+\pagebreak
+
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{6}
+
+\bibitem{BHR}
+  P. Horak, A. Rosa,
+  On a problem of Marco Buratti,
+  \textit{Electronic J. Combin.} \textbf{16} (2009), $\sharp$R20.
+
+\bibitem{NewResult}
+  A. Pasotti, M. A. Pellegrini,
+  A new result on the problem of Buratti, Horak and Rosa,
+  \textit{Discrete Math.}, \textbf{319} (2014), 1-14. 
+
+\bibitem{NewMethods}
+  M. A. Ollis, A. Pasotti, M. A. Pellegrini, J. R. Schmitt,
+  New methods to attack the Buratti-Horak-Rosa conjecture,
+  \textit{submitted} (2020).
+
+\bibitem{123}
+  S. Capparelli, A. Del Fra,
+  Hamiltonian paths in the complete graph with edge-lengths 1,2,3,
+  \textit{Electron. J. Combin.} \textbf{17} (2010), $\sharp$R44.
+
+\bibitem{OnBHR}
+  A. Pasotti, M. A. Pellegrini,
+  On the Buratti-Horak-Rosa Conjecture about Hamiltonian paths in complete graphs,
+  \textit{Electron. J. Combin.} \textbf{21} (2014), $\sharp$P2.30.
+
+\bibitem{SandS}
+  B. Seamone, B. Stevens,
+  Spanning trees with specified differences in Cayley graphs,
+  \textit{Discrete Math.}, \textbf{312} (2012), 2561-2565.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,150 @@
+
+
+\documentclass[12pt]{article}
+
+
+\pagestyle{plain}
+
+%packages
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{changepage}
+\usepackage{listings}
+\usepackage{graphicx}
+\graphicspath{ {../images/} }
+
+\usepackage{dirtree}
+
+\usepackage{abstract}
+\renewcommand{\abstractname}{}
+\renewcommand{\absnamepos}{empty}
+
+%environments
+\newtheorem{thm}{Theorem}
+\newtheorem{exa}{Example}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{conj}{Conjecture}
+\newtheorem{defi}{Definition}
+
+%-- notation -- Check these out!!
+\newcommand{\noqed}{\begin{flushright}$\Box$\end{flushright}}
+\newcommand{\ba}{\[\begin{aligned}}
+\newcommand{\ea}{\end{aligned}\]}
+%numbers
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+%sets
+\newcommand{\setof}[1]{\left\{#1\right\}}
+\newcommand{\setdef}[2]{\left\{#1\mid#2\right\}}
+%matrix
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+%groups
+\newcommand{\gen}[1]{\langle#1\rangle} %generator
+%topology
+\newcommand{\Lk}{\text{Lk}}
+\newcommand{\St}{\text{St}}
+\newcommand{\dl}{\text{dl}}
+\newcommand{\Bary}{\text{Bary }}
+\newcommand{\skel}{\text{skel }}
+\newcommand{\Baryn}[1]{\text{Bary}^{#1}\ }
+\newcommand{\skeln}[1]{\text{skel}^{#1}\ }
+
+\newcommand\Bstrut{\rule[-0.4cm]{0pt}{0pt}}
+\newcommand\Tstrut{\rule{0pt}{0.4cm}}
+
+%spacing
+%\setlength{\parindent}{0in}
+%\setlength{\parskip}{3mm}
+
+
+\begin{document}
+
+
+\begin{titlepage}
+  \centering
+      {\scshape\LARGE Combinatorics and Distributed Computing \par}
+      {\scshape\large A Marlboro Plan of Concentration \par}
+      \vspace{1cm}
+      \includegraphics[scale=.85]{marlboro_logo.jpg}\par\vspace{1cm}
+      {\scshape\LARGE Kat Cannon-MacMartin \par}
+      \vspace{1cm}       
+      {\scshape\Large Mathematics \& Computer Science\par}
+      \vspace{.25cm}
+      {\scshape\Large April of 2021 \par}
+      \vspace{.1cm}
+
+      \begin{flushleft}
+        $$\begin{array}{lclcl}
+
+            \text{{\scshape Plan Sponsor }} & 
+            \text{-} & 
+            \text{{\scshape Matt Ollis }} & 
+            \text{-} & 
+            \text{{\scshape Professor of Mathematics }} \\
+
+            & & & & \hspace{30mm} \text{{\scshape at Marlboro College }}  \\
+
+            \text{{\scshape Plan Sponsor }} &
+            \text{-} &
+            \text{{\scshape Jim Mahoney }} &
+            \text{-}  &
+            \text{{\scshape Professor of Computer Science }}\\
+
+            & & & & \hspace{30mm} 
+
+            \text{{\scshape at Marlboro College }}  \\
+          
+          
+            \text{{\scshape Outside Evaluator }} & 
+            \text{-} & \text{{\scshape Onur A\u{g}{\i}rseven}}\\
+      \end{array}$$
+      \end{flushleft}
+      
+      \section*{Abstract}
+      \begin{abstract}
+        {\normalsize
+        This Plan of Concentration is composed of research in combinatorics,
+        a survey of methods in distributed computing, and general tests covering mathematics and
+        computer science. The combinatorics research paper investigates multisets of edge labels
+        that form Hamiltonian paths through graphs labeled with elements of the dihedral group.
+        This research expands on a question proposed by Buratti, Horak, and Rosa about cyclic groups.
+        The distributed computing survey exemplifies common theoretical models for distributed algorithms
+        through code examples, accompanied by a descriptive paper. Finally, a test in mathematics and a test
+        in computer science demonstrate mastery of more general knowledge acquired over four years of study.
+        }
+      \end{abstract}
+
+      \bigskip
+      \bigskip
+      
+      \begin{center}
+        \section*{Components}
+        {\large
+        \noindent\begin{tabular}{l||l}
+        Component & \%\Tstrut \\
+        \hline
+        \hline
+        Hamiltonian paths through the complete graph of the dihedral group\hspace{0.3cm}  & 50\\
+        \hspace{1cm} \textit{Research paper in graph theory and combinatorics.}\Bstrut\\
+        Three flavors of Paxos & 30 \\
+        \hspace{1cm} \textit{Three implementations of the Paxos algorithm demonstrated}\\
+        \hspace{1cm} \textit{in C, with accompanying paper.}\Bstrut\\
+        Exam in Mathematics  & 10\Bstrut \\
+        Exam in Computer Science  & 10
+
+        \end{tabular}
+        }
+      \end{center}
+\end{titlepage}
+
+\end{document}

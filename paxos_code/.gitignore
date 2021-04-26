@@ -1,0 +1,8 @@
+*~
+.tmp/
+*.o
+tests/L*
+bin/*_paxos
+*.log
+*.aux
+doc/
